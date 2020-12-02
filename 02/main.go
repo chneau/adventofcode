@@ -13,8 +13,9 @@ func main() {
 	raw := common.DownloadInput("https://adventofcode.com/2020/day/2/input")
 	_ = raw
 	goodPasswords := 0
+	goodPasswords2 := 0
 	defer tt.T()()
-	log.Println("PART ONE")
+	log.Println("PART ONE & TWO")
 	for _, policy := range strings.Split(raw, "\n") {
 		if policy == "" {
 			continue
@@ -35,6 +36,22 @@ func main() {
 		if count >= from && count <= to {
 			goodPasswords++
 		}
+		// part two
+		goodIndex := 0
+		if from-1 < len(password) {
+			if password[from-1:from] == letter {
+				goodIndex++
+			}
+		}
+		if to-1 < len(password) {
+			if password[to-1:to] == letter {
+				goodIndex++
+			}
+		}
+		if goodIndex == 1 {
+			goodPasswords2++
+		}
 	}
-	log.Println("There is", goodPasswords, "good passords.")
+	log.Println("There is", goodPasswords, "good passwords.")
+	log.Println("There is", goodPasswords2, "good passwords with the new job rule.")
 }
