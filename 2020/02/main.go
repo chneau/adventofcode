@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/chneau/adventofcode2020/common"
+	"github.com/chneau/adventofcode/common"
 	"github.com/chneau/tt"
 )
 
