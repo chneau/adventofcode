@@ -5,12 +5,10 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
-	"strings"
 )
 
 // DownloadInput ...
-func DownloadInput(inputURL string) []int {
+func DownloadInput(inputURL string) string {
 	session := os.Getenv("AOC")
 	if session == "" {
 		log.Panicln("Env var AOC is not defined with the session value")
@@ -31,16 +29,5 @@ func DownloadInput(inputURL string) []int {
 	if err != nil {
 		log.Panicln(err)
 	}
-	strs := strings.Split(string(b), "\n")
-	result := make([]int, len(strs))
-	for i, str := range strs {
-		if str == "" {
-			continue
-		}
-		result[i], err = strconv.Atoi(str)
-		if err != nil {
-			log.Panicln(err)
-		}
-	}
-	return result
+	return string(b)
 }
