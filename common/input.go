@@ -24,7 +24,6 @@ func DownloadInput(inputURL string) string {
 		log.Panicln(err)
 	}
 	defer resp.Body.Close()
-	defer resp.Body.Close()
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Panicln(err)
