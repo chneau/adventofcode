@@ -16,9 +16,6 @@ func main() {
 	input := make([]int, len(strs))
 	var err error
 	for i, str := range strs {
-		if str == "" {
-			continue
-		}
 		input[i], err = strconv.Atoi(str)
 		if err != nil {
 			log.Panicln(err)

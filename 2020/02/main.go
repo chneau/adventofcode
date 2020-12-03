@@ -17,9 +17,6 @@ func main() {
 	defer tt.T()()
 	log.Println("PART ONE & TWO")
 	for _, policy := range strings.Split(raw, "\n") {
-		if policy == "" {
-			continue
-		}
 		dashIndex := strings.Index(policy, "-")
 		spaceIndex := strings.Index(policy, " ")
 		from, err := strconv.Atoi(policy[:dashIndex])

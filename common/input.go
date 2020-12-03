@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 // DownloadInput ...
@@ -28,5 +29,5 @@ func DownloadInput(inputURL string) string {
 	if err != nil {
 		log.Panicln(err)
 	}
-	return string(b)
+	return strings.TrimSuffix(string(b), "\n")
 }

@@ -14,9 +14,6 @@ func main() {
 	totalWrap := 0
 	totalRibbon := 0
 	for _, dimmension := range strings.Split(raw, "\n") {
-		if dimmension == "" {
-			continue
-		}
 		firstX := strings.Index(dimmension, "x")
 		lastX := strings.LastIndex(dimmension, "x")
 		l, err := strconv.Atoi(dimmension[:firstX])

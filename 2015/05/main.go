@@ -15,9 +15,6 @@ func main() {
 		unwanteds := []string{"ab", "cd", "pq", "xy"}
 		goodLines := 0
 		for _, line := range strings.Split(raw, "\n") {
-			if line == "" {
-				continue
-			}
 			vowelsCount := 0
 			for _, vowel := range vowels {
 				vowelsCount += strings.Count(line, vowel)
