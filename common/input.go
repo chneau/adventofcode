@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -30,4 +31,9 @@ func DownloadInput(inputURL string) string {
 		log.Panicln(err)
 	}
 	return strings.TrimSuffix(string(b), "\n")
+}
+
+// DownloadInputFor ...
+func DownloadInputFor(year, day int) string {
+	return DownloadInput("https://adventofcode.com/" + strconv.Itoa(year) + "/day/" + strconv.Itoa(day) + "/input")
 }
