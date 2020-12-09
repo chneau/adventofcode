@@ -1,0 +1,60 @@
+package main
+
+import (
+	"log"
+	"sort"
+	"strconv"
+	"strings"
+
+	"github.com/chneau/adventofcode/common"
+)
+
+func main() {
+	raw := common.DownloadInputFor(2020, 9)
+	numbers := toListOfInts(raw)
+	for i := 25; i < len(numbers); i++ {
+		if !check(numbers, 25, i) {
+			log.Println("What is the first number that does not have this property?", numbers[i])
+			break
+		}
+	}
+}
+
+func check(numbers []int, lastN, index int) bool {
+	lasts := []int{}
+	for i := index - lastN; i < index; i++ {
+		lasts = append(lasts, numbers[i])
+	}
+	sort.Ints(lasts)
+	target := numbers[index]
+	for i, value := range lasts { // remove numbers too high
+		if value >= target {
+			lasts = lasts[:i]
+			break
+		}
+	}
+	return hasTwoSum(lasts, target)
+}
+
+func hasTwoSum(nums []int, target int) bool {
+	for _, v := range nums {
+		v2 := target - v
+		i := sort.SearchInts(nums, v2)
+		if i == len(nums) {
+			continue
+		}
+		if v2 == nums[i] {
+			return true
+		}
+	}
+	return false
+}
+
+func toListOfInts(raw string) []int {
+	lines := strings.Split(raw, "\n")
+	numbers := make([]int, len(lines))
+	for i, numberStr := range lines {
+		numbers[i], _ = strconv.Atoi(numberStr)
+	}
+	return numbers
+}
