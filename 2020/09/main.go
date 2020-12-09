@@ -11,16 +11,43 @@ import (
 
 func main() {
 	raw := common.DownloadInputFor(2020, 9)
-	numbers := toListOfInts(raw)
+	numbers := toSliceOfInts(raw)
+	target := 0
 	for i := 25; i < len(numbers); i++ {
-		if !check(numbers, 25, i) {
-			log.Println("What is the first number that does not have this property?", numbers[i])
+		if !isCorrect(numbers, 25, i) {
+			target = numbers[i]
+			log.Println("What is the first number that does not have this property?", target)
 			break
 		}
 	}
+	answer := findWeakness(numbers, target)
+	log.Println("What is the encryption weakness in your XMAS-encrypted list of numbers?", answer)
 }
 
-func check(numbers []int, lastN, index int) bool {
+func findWeakness(numbers []int, target int) int {
+	weakness := []int{}
+	for i := 0; i < len(numbers); i++ {
+		sum := 0
+		j := i
+		for ; j < len(numbers); j++ {
+			sum += numbers[j]
+			if sum >= target {
+				break
+			}
+		}
+		if sum == target {
+			weakness = numbers[i:j]
+			break
+		}
+	}
+	sort.Ints(weakness)
+	min := weakness[0]
+	max := weakness[len(weakness)-1]
+	answer := min + max
+	return answer
+}
+
+func isCorrect(numbers []int, lastN, index int) bool {
 	lasts := []int{}
 	for i := index - lastN; i < index; i++ {
 		lasts = append(lasts, numbers[i])
@@ -36,7 +63,7 @@ func check(numbers []int, lastN, index int) bool {
 	return hasTwoSum(lasts, target)
 }
 
-func hasTwoSum(nums []int, target int) bool {
+func hasTwoSum(nums []int, target int) bool { // sourced and modified from https://stackoverflow.com/a/34672624
 	for _, v := range nums {
 		v2 := target - v
 		i := sort.SearchInts(nums, v2)
@@ -50,7 +77,7 @@ func hasTwoSum(nums []int, target int) bool {
 	return false
 }
 
-func toListOfInts(raw string) []int {
+func toSliceOfInts(raw string) []int {
 	lines := strings.Split(raw, "\n")
 	numbers := make([]int, len(lines))
 	for i, numberStr := range lines {
