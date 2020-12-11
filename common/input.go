@@ -37,3 +37,13 @@ func DownloadInput(inputURL string) string {
 func DownloadInputFor(year, day int) string {
 	return DownloadInput("https://adventofcode.com/" + strconv.Itoa(year) + "/day/" + strconv.Itoa(day) + "/input")
 }
+
+// StrToInts ...
+func StrToInts(str string) []int {
+	numbers := []int{}
+	for _, numberStr := range strings.Split(str, "\n") {
+		number, _ := strconv.Atoi(numberStr)
+		numbers = append(numbers, number)
+	}
+	return numbers
+}
