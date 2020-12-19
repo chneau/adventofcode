@@ -47,3 +47,12 @@ func StrToInts(str string) []int {
 	}
 	return numbers
 }
+
+// StrsSplitBy ...
+func StrsSplitBy(raw, split string) []string {
+	lines := []string{}
+	for _, line := range strings.Split(raw, split) {
+		lines = append(lines, line)
+	}
+	return lines
+}
